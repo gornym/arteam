@@ -1,4 +1,4 @@
-# arteam-new
+# arteam--new
 
 ## Project setup
 ```

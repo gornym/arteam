@@ -1,6 +1,7 @@
 <template>
   <Nav />
-  <Header />
+  <!-- <Header /> -->
+  <NewHeader />
   <div class="video">
     <video
       v-if="videoSrc"
@@ -15,17 +16,27 @@
       Twoja przeglądarka nie obsługuje tagu video.
     </video>
   </div>
-  <Section1 style="margin-top: 100vh" />
+  <NewSection1 style="margin-top: 100vh" />
+  <!-- <Section1 style="margin-top: 100vh" /> -->
+  <!-- <NewSection2 /> -->
   <Section2 />
+  <Section3 />
+  <Section4 />
   <Footer />
 </template>
 
 <script>
-import Header from "@/components/HeaderComponent.vue";
+import "@/css/app.sass";
+// import Header from "@/components/HeaderComponent.vue";
 import Nav from "@/components/NavComponent.vue";
-import Section1 from "@/components/Section1Component.vue";
+// import Section1 from "@/components/Section1Component.vue";
+import NewSection1 from "@/components/NewSection1.vue";
+// import NewSection2 from "@/components/NewSection2.vue";
 import Section2 from "@/components/Section2Component.vue";
+import Section3 from "@/components/Section3Component.vue";
+import Section4 from "@/components/Section4Component.vue";
 import Footer from "@/components/FooterComponent.vue";
+import NewHeader from "@/components/NewHeader.vue";
 
 import { ref, onMounted } from "vue";
 import {
@@ -36,11 +47,16 @@ import {
 
 export default {
   components: {
-    Header,
+    // Header,
     Nav,
-    Section1,
+    // Section1,
+    NewSection1,
+    // NewSection2,
     Section2,
+    Section3,
+    Section4,
     Footer,
+    NewHeader,
   },
   setup() {
     const videoSrc = ref("");
@@ -58,9 +74,9 @@ export default {
 
         videoSrc.value = url2;
 
-        console.log("Pomyślnie pobrano zdjęcia", url2);
+        // console.log("Pomyślnie pobrano zdjęcia", url2);
       } catch (error) {
-        console.error(error.message);
+        // console.error(error.message);
       }
     }
     return {
@@ -96,11 +112,12 @@ body {
   align-items: center;
   justify-content: center;
   top: 0;
-  background-color: #000000;
+  background: linear-gradient(#5353539e, #5353539e);
+  background-color: #ffffff;
   video {
     padding-top: 5rem;
-    height: 100%;
-    width: 100%;
+    height: 87%;
+    width: 90%;
   }
 }
 </style>

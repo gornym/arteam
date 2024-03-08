@@ -66,9 +66,9 @@ export default {
         fbIcon.value = url2;
         igIcon.value = url3;
 
-        console.log("Pomyslnie pobrano zdjecia", url1);
+        // console.log("Pomyslnie pobrano zdjecia", url1);
       } catch (error) {
-        console.error(error.message);
+        // console.error(error.message);
       }
     }
     return {
@@ -84,7 +84,7 @@ export default {
 .footer-box {
   height: 10vh;
   width: 100%;
-  border-top: 1px solid white;
+  border-top: 1px solid #494949;
   background-color: black;
   display: flex;
   flex-direction: row;

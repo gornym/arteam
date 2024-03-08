@@ -237,9 +237,9 @@ export default {
 
         headerSrcBg.value = url;
 
-        console.log("Pomyślnie pobrano URL zdjęcia:", url);
+        // console.log("Pomyślnie pobrano URL zdjęcia:", url);
       } catch (error) {
-        console.error("Błąd podczas pobierania URL zdjęcia:", error.message);
+        // console.error("Błąd podczas pobierania URL zdjęcia:", error.message);
       }
     }
 

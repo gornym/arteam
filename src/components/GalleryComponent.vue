@@ -78,7 +78,7 @@ export default {
     const storage = getStorage();
     const state = reactive({
       mouseDownAt: 0,
-      prevPercentage: 0,
+      prevPercentage: -10,
       images: [],
     });
 
@@ -136,7 +136,7 @@ export default {
       const mouseDelta = parseFloat(state.mouseDownAt) - mouseX;
       const maxDelta = window.innerWidth / 2;
 
-      const percentage = (mouseDelta / maxDelta) * -90,
+      const percentage = (mouseDelta / maxDelta) * -100,
         nextPercentageUnconstrained =
           parseFloat(state.prevPercentage) + percentage,
         nextPercentage = Math.max(
@@ -170,7 +170,7 @@ export default {
           state.images.push({ src: url, loaded: false });
         }
       } catch (error) {
-        console.error("Error loading images:", error);
+        // console.error("Error loading images:", error);
       }
     };
 
@@ -231,13 +231,12 @@ export default {
   display: flex;
   gap: 4vmin;
   position: relative;
-  left: 50%;
-  top: 40%;
-  transform: translate(-10%, -60%);
+  left: 0%;
+  top: 0%;
   cursor: grab;
   &:hover {
     h3 {
-      color: #1f1e1e;
+      color: #1f1f1f;
     }
   }
 }
@@ -249,8 +248,8 @@ export default {
   justify-content: center;
   height: 56vmin;
   width: 100vmin;
-  border-left: 1px solid #e5e5e5;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.094), #8c8c8c00);
+  border-left: 2px solid #1f1f1f;
+  background: linear-gradient(to right, rgba(173, 173, 173, 0.194), #0c0c0c00);
   .content {
     h3 {
       width: 100%;
@@ -261,7 +260,7 @@ export default {
       font-size: 700;
       margin: 0;
       padding: 0;
-      filter: drop-shadow(0px 0px 2px #f2f2f2);
+      filter: drop-shadow(0px 0px 2px #1f1f1f);
       transition: 0.4s all;
       display: flex;
       align-items: center;
@@ -281,7 +280,7 @@ export default {
 
     span {
       font-size: 2rem;
-      color: #1f1e1e;
+      color: #1f1f1f;
       font-weight: 700;
       filter: drop-shadow(0px 0px 2px #f2f2f2);
       opacity: 0;
@@ -295,6 +294,7 @@ export default {
   object-position: 100% 50%;
   box-shadow: 0px 0px 20px black;
   transition: transform 1.2s ease;
+  border: 2px solid #1f1f1f;
 }
 
 #image-track > .image-tile {

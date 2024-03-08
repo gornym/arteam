@@ -4,7 +4,12 @@
       <img alt="section1-img" :src="sec1_img1" draggable="false" />
     </div>
     <div class="back2">
-      <img alt="section1-img" :src="sec1_img2" draggable="false" />
+      <img
+        alt="section1-img"
+        :src="sec1_img2"
+        draggable="false"
+        :style="{ transform: parallaxTransform }"
+      />
     </div>
     <div class="content-box">
       <div class="heading">
@@ -15,16 +20,15 @@
       <div class="content">
         <p>
           Zespół AR Team realizuje prace związane z wykończeniem wnętrz,
-          remontami oraz <br />
-          usługami budowlanymi. Każdy projekt wykonujemy z najwyższą<br />
-          starannością i dbałością o detale. Nasze doświadczenie budowane przez
-          wiele lat<br />
-          pracy w Polsce i Ukrainie oraz staranny dobór niezawodnych materiałów
-          gwarantują<br />
-          rezultaty na najwyższym poziomie.
+          remontami oraz usługami budowlanymi.<br /><br />
+          Każdy projekt wykonujemy z najwyższą starannością i dbałością o
+          detale.<br /><br />
+          Nasze doświadczenie budowane przez wiele lat pracy w Polsce i Ukrainie
+          oraz staranny dobór niezawodnych materiałów gwarantują rezultaty na
+          najwyższym poziomie.
         </p>
       </div>
-      <div class="offer-box-main">
+      <!-- <div class="offer-box-main">
         <div class="offer-box">
           <div class="offer">
             <span
@@ -149,7 +153,7 @@
             <h1>Meble na wymiar</h1>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -166,37 +170,29 @@ export default {
   setup() {
     const sec1_img1 = ref("");
     const sec1_img2 = ref("");
-
-    const calculateLowerEdgeHeight1 = () => {
-      const boxes = document.querySelectorAll(".back2");
-
-      boxes.forEach((box) => {
-        const rect = box.getBoundingClientRect();
-        const lowerEdgeHeight = rect.bottom;
-
-        if (lowerEdgeHeight <= window.innerHeight * 1.25) {
-          box.style.transition = "right 0.7s ease";
-          box.style.right = "5%";
-        } else {
-          box.style.transition = "right 0.7s ease";
-          box.style.right = "-100%";
-        }
-      });
-    };
+    const parallaxTransform = ref("translateY(0%)");
+    // const contentBoxParallaxTransform = ref("translateY(0%)");
 
     onMounted(() => {
       fetchImage();
-      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", updateParallax);
     });
-
     onBeforeUnmount(() => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", updateParallax);
     });
+    function updateParallax() {
+      // Adjust the multiplier based on the desired parallax effect
+      const parallaxMultiplier = 0.5;
+      const scrollPosition = window.scrollY;
+      // const contentBoxParallaxMultiplier = 0.5;
 
-    const handleScroll = () => {
-      calculateLowerEdgeHeight1();
-    };
-
+      parallaxTransform.value = `translateY(${
+        -scrollPosition * parallaxMultiplier
+      }px)`;
+      // contentBoxParallaxTransform.value = `translateY(${
+      //   scrollPosition * contentBoxParallaxMultiplier
+      // }px)`;
+    }
     async function fetchImage() {
       try {
         const storage = getStorage();
@@ -208,14 +204,16 @@ export default {
         sec1_img1.value = url1;
         sec1_img2.value = url2;
 
-        console.log("Pomyslnie pobrano zdjecia", url1);
+        // console.log("Pomyslnie pobrano zdjecia", url1);
       } catch (error) {
-        console.error(error.message);
+        // console.error(error.message);
       }
     }
     return {
       sec1_img1,
       sec1_img2,
+      parallaxTransform,
+      // contentBoxParallaxTransform,
     };
   },
 };
@@ -229,7 +227,7 @@ export default {
   background-color: black;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   box-shadow: 0px -20px 25px black;
   .back1 {
@@ -249,7 +247,7 @@ export default {
   .back2 {
     position: absolute;
     width: auto;
-    top: 25%;
+    top: 125%;
     right: 7%;
     height: 60%;
     display: flex;
@@ -262,11 +260,8 @@ export default {
     }
   }
   .content-box {
-    position: relative;
-    z-index: 10;
-    width: 100%;
+    width: 50%;
     height: 100vh;
-    background: linear-gradient(#000000fd, #1b1b1b33, #000000fd);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -290,10 +285,11 @@ export default {
       align-items: center;
       justify-content: flex-start;
       height: auto;
+
       p {
         color: #e5e5e5;
         font-family: "Montserrat", sans-serif;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
       }
     }
     .offer-box-main {

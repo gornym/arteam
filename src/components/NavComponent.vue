@@ -1,25 +1,25 @@
 <template>
   <nav>
-    <div class="left-nav">
+    <div class="left-nav" style="padding-left: 2rem">
       <a @click="scrollToSection1"> O NAS</a>
+      <a @click="scrollToSection2">REALIZACJE</a>
     </div>
     <div class="middle-nav">
-      <img alt="logo" :src="logoSrc" draggable="false" />
+      <img
+        alt="logo"
+        src="@/assets/1.webp"
+        draggable="false"
+        @click="scrollToHeader"
+      />
     </div>
     <div class="right-nav">
-      <a @click="scrollToSection2">REALIZACJE</a>
+      <a @click="scrollToSection3"> USŁUGI</a>
+      <a @click="scrollToSection4">KONTAKT</a>
     </div>
   </nav>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
-import {
-  getStorage,
-  ref as storageRef,
-  getDownloadURL,
-} from "firebase/storage";
-
 export default {
   data() {
     return {};
@@ -27,7 +27,7 @@ export default {
   methods: {
     scrollToSection1() {
       document
-        .getElementById("section1")
+        .getElementById("new-section-1")
         .scrollIntoView({ behavior: "smooth" });
     },
     scrollToSection2() {
@@ -35,30 +35,19 @@ export default {
         .getElementById("section2")
         .scrollIntoView({ behavior: "smooth" });
     },
-  },
-  setup() {
-    const logoSrc = ref("");
-
-    onMounted(() => {
-      fetchImage();
-    });
-
-    async function fetchImage() {
-      try {
-        const storage = getStorage();
-        const imageRef = storageRef(storage, "arteam-pictures/1.webp");
-        const url = await getDownloadURL(imageRef);
-
-        logoSrc.value = url;
-
-        console.log("Pomyslnie pobrano zdjecia", url);
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-    return {
-      logoSrc,
-    };
+    scrollToSection3() {
+      document
+        .getElementById("section3")
+        .scrollIntoView({ behavior: "smooth" });
+    },
+    scrollToSection4() {
+      document
+        .getElementById("section4")
+        .scrollIntoView({ behavior: "smooth" });
+    },
+    scrollToHeader() {
+      document.getElementById("header").scrollIntoView({ behavior: "smooth" });
+    },
   },
 };
 </script>
@@ -81,8 +70,10 @@ nav {
   .right-nav {
     width: 40%;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 4rem;
     a {
       position: relative;
       font-size: 1.5rem;
@@ -107,6 +98,10 @@ nav {
       }
     }
   }
+  .right-nav {
+    justify-content: flex-end;
+    padding-right: 2rem;
+  }
   .middle-nav {
     width: 20%;
     display: flex;
@@ -116,6 +111,7 @@ nav {
       height: 11vh;
       padding: 5px 0px;
       filter: drop-shadow(0px 0px 2px black);
+      cursor: pointer;
     }
   }
 }
